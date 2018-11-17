@@ -16,7 +16,7 @@ LIGHT_IMAGES = [Image.open('src/sun.PNG'), Image.open('src/moon.PNG')]
 def main():
     global led_widgets, pb_light
 
-    app = App(title='Physical Programming Simulator', bg='tan', height=700, layout='grid')
+    app = App(title='Physical Programming Simulator', bg='tan', height=650, layout='grid')
 
     Text(app, text=' ' * 8, grid=[0, 0])
 
@@ -59,7 +59,10 @@ def main():
     Text(app, text='Sensor', grid=[5, 2])
 
     pb_light = PushButton(app, image=LIGHT_IMAGES[0], width=180,
-                          command=toggle_light, grid=[5, 4])
+                          height=180, command=toggle_light, grid=[5, 4])
+
+    Text(app, text='Buzzer', grid=[5, 9])
+    Picture(app, image='src/Speaker.png', grid=[5, 10])
 
     Text(app, text=' ' * 8, grid=[6, 0])
 
