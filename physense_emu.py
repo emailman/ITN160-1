@@ -28,7 +28,7 @@ class Sensor:
         file.close()
 
         file = open('src/light.txt', 'w')
-        file.write('sun')
+        file.write('on')
         file.close()
 
     # Send data to the leds
@@ -95,7 +95,7 @@ class Sensor:
             return "pressed"
 
         # Return the temperature if a temperature query
-        elif phy_obj == 'temperature':
+        elif phy_obj == 'temperature' or phy_obj == 'temp':
             file = open('src/temperature.txt', 'r')
             reading = file.readline()
             file.close()

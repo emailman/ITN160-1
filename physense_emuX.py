@@ -61,7 +61,7 @@ def main():
     pb_light = PushButton(app, image=LIGHT_IMAGES[0], width=180,
                           height=180, command=toggle_light, grid=[5, 4])
 
-    Text(app, text='Buzzer', grid=[5, 9])
+    Text(app, text='buzz', grid=[5, 9])
     Picture(app, image='src/Speaker.png', grid=[5, 10])
 
     Text(app, text=' ' * 8, grid=[6, 0])
@@ -70,7 +70,7 @@ def main():
     Text(app, text='Sensor', grid=[7, 2])
 
     Slider(app, horizontal=False, start=150, end=-50, align='top',
-           width=50, height=200, command=temp_changed, grid=[7, 4, 1, 7])
+           width=50, height=200, command=temperature_changed, grid=[7, 4, 1, 7])
 
     # Refresh the display every 500 ms to update the leds
     app.repeat(500, led_update)
@@ -84,16 +84,16 @@ def toggle_light():
 
     if light_toggle:
         pb_light.image = LIGHT_IMAGES[0]
-        file.write('sun')
+        file.write('on')
     else:
         pb_light.image = LIGHT_IMAGES[1]
-        file.write('moon')
+        file.write('off')
 
     file.close()
     light_toggle = not light_toggle
 
 
-def temp_changed(degc):
+def temperature_changed(degc):
     file = open('src/temperature.txt', 'w')
     file.write(degc)
     file.close()
