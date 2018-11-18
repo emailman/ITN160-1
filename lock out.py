@@ -4,6 +4,7 @@ from time import sleep
 sensor = physense_emu.Sensor()
 
 while True:
+    # Show green if unlocked, red if locked
     lock_status = sensor.input('light')
     if lock_status == 'on':
         sensor.output('gled', 'on')
@@ -12,6 +13,7 @@ while True:
         sensor.output('gled', 'off')
         sensor.output('rled', 'on')
 
+    # Run a cycle only if unlocked
     if sensor.input('Button_4') == 'pressed' and lock_status == 'on':
         for i in range(5):
             sensor.output('bled', 'on')
