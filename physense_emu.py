@@ -1,9 +1,10 @@
 import subprocess
+from playsound import playsound
 
 
 def clear_button():
     # Clear the button status after it's read
-    file = open('src/button_status.txt', 'w')
+    file = open('data/button_status.txt', 'w')
     file.write('None')
     file.close()
 
@@ -12,22 +13,22 @@ class Sensor:
 
     def __init__(self):
         # Start the simulator
-        subprocess.Popen('C:\Program Files (x86)\Python36-32\python.exe physense_emuX.py')
+        subprocess.Popen('python.exe physense_emuX.py')
 
         # Initialize the data files
-        file = open('src/led_status.txt', 'w')
+        file = open('data/led_status.txt', 'w')
         file.write('0 0 0 0')
         file.close()
 
-        file = open('src/button_status.txt', 'w')
+        file = open('data/button_status.txt', 'w')
         file.write('None')
         file.close()
 
-        file = open('src/temperature.txt', 'w')
+        file = open('data/temperature.txt', 'w')
         file.write('0')
         file.close()
 
-        file = open('src/light.txt', 'w')
+        file = open('data/light.txt', 'w')
         file.write('on')
         file.close()
 
@@ -35,8 +36,13 @@ class Sensor:
     @staticmethod
     def output(led, status):
 
+        # Sound the buzzer if requested
+        if led == 'buzzer':
+            playsound('src/buzzer.wav')
+            return
+
         # Get the current led status
-        file = open('src/led_status.txt', 'r')
+        file = open('data/led_status.txt', 'r')
         led_status = file.readline().split()
         file.close()
 
@@ -62,7 +68,7 @@ class Sensor:
             led_status[3] = '1'
 
         # Write the new led status to the data file
-        file = open('src/led_status.txt', 'w')
+        file = open('data/led_status.txt', 'w')
         file.writelines(led_status[0] + ' ' +
                         led_status[1] + ' ' +
                         led_status[2] + ' ' +
@@ -73,7 +79,7 @@ class Sensor:
     def input(phy_obj):
 
         # Get the name of the most recent button clicked
-        file = open('src/button_status.txt', 'r')
+        file = open('data/button_status.txt', 'r')
         button_status = file.readline()
         file.close()
 
@@ -96,14 +102,14 @@ class Sensor:
 
         # Return the temperature if a temperature query
         elif phy_obj == 'temperature' or phy_obj == 'temp':
-            file = open('src/temperature.txt', 'r')
+            file = open('data/temperature.txt', 'r')
             reading = file.readline()
             file.close()
             return reading
 
         # Return the light status if a light query
         elif phy_obj == 'light':
-            file = open('src/light.txt', 'r')
+            file = open('data/light.txt', 'r')
             reading = file.readline()
             file.close()
             return reading

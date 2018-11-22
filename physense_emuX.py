@@ -1,16 +1,16 @@
 from guizero import *
-from PIL import Image
+# from PIL import Image
 
 led_widgets = []
 light_toggle = False
 pb_light = None
 
 # Store the led image files in lists
-RED_LED_IMAGES = [Image.open('src/rLedOff.PNG'), Image.open('src/rLedOn.PNG')]
-YELLOW_LED_IMAGES = [Image.open('src/yLedOff.PNG'), Image.open('src/yLedOn.PNG')]
-GREEN_LED_IMAGES = [Image.open('src/gLedOff.PNG'), Image.open('src/gLedOn.PNG')]
-BLUE_LED_IMAGES = [Image.open('src/bLedOff.PNG'), Image.open('src/bLedOn.PNG')]
-LIGHT_IMAGES = [Image.open('src/sun.PNG'), Image.open('src/moon.PNG')]
+RED_LED_IMAGES = ['src/rLedOff.PNG', 'src/rLedOn.PNG']
+YELLOW_LED_IMAGES = ['src/yLedOff.PNG', 'src/yLedOn.PNG']
+GREEN_LED_IMAGES = ['src/gLedOff.PNG', 'src/gLedOn.PNG']
+BLUE_LED_IMAGES = ['src/bLedOff.PNG', 'src/bLedOn.PNG']
+LIGHT_IMAGES = ['src/sun.PNG', 'src/moon.PNG']
 
 
 def main():
@@ -80,7 +80,7 @@ def main():
 
 def toggle_light():
     global light_toggle
-    file = open('src/light.txt', 'w')
+    file = open('data/light.txt', 'w')
 
     if light_toggle:
         pb_light.image = LIGHT_IMAGES[0]
@@ -94,20 +94,20 @@ def toggle_light():
 
 
 def temperature_changed(degc):
-    file = open('src/temperature.txt', 'w')
+    file = open('data/temperature.txt', 'w')
     file.write(degc)
     file.close()
 
 
 def button_click(btn_num):
-    file = open('src/button_status.txt', 'w')
+    file = open('data/button_status.txt', 'w')
     file.write('Button_' + str(btn_num))
     file.close()
 
 
 def led_update():
     # Read the required led status from the data file
-    file = open('src/led_status.txt', 'r')
+    file = open('data/led_status.txt', 'r')
     led_status = file.readline().split()
     file.close()
 

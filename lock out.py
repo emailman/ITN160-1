@@ -15,8 +15,9 @@ while True:
 
     # Run a cycle only if unlocked
     if sensor.input('Button_4') == 'pressed' and lock_status == 'on':
-        for i in range(5):
+        for i in range(3):
             sensor.output('bled', 'on')
+            sensor.output('buzzer', 'play')
             sleep(1)
             sensor.output('bled', 'off')
             sleep(1)
